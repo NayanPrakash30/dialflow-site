@@ -8,6 +8,7 @@
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <meta name="author" content="Nayan Prakash">
 <link rel="canonical" href="https://nayanprakash30.github.io/dialflow-site/">
+<!-- Google Search Console: paste your verification meta tag here, then run tools\publish-site.mjs --push -->
 <link rel="sitemap" type="application/xml" href="sitemap.xml">
 
 <meta property="og:type" content="website">
@@ -42,6 +43,7 @@
       "name": "DialFlow: Auto Dialer App for Android",
       "description": "DialFlow dials a pasted list of numbers one call after another, with an adjustable gap between calls. On-device only, no account, no contacts or call-log access.",
       "about": { "@id": "https://nayanprakash30.github.io/dialflow-site/#app" },
+      "isPartOf": { "@id": "https://nayanprakash30.github.io/dialflow-site/#website" },
       "inLanguage": "en-IN"
     },
     {
@@ -80,6 +82,77 @@
           { "@type": "Offer", "name": "Lifetime", "description": "One-time payment, all future updates.", "price": "4999", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "url": "https://nayanprakash30.github.io/dialflow-site/#pricing" }
         ]
       }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://nayanprakash30.github.io/dialflow-site/#website",
+      "url": "https://nayanprakash30.github.io/dialflow-site/",
+      "name": "DialFlow",
+      "inLanguage": "en-IN",
+      "publisher": { "@id": "https://nayanprakash30.github.io/dialflow-site/#app" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://nayanprakash30.github.io/dialflow-site/#faq",
+      "url": "https://nayanprakash30.github.io/dialflow-site/#faq",
+      "isPartOf": { "@id": "https://nayanprakash30.github.io/dialflow-site/#webpage" },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is the trial really free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. 24 hours of full use from the first time you open the app. No card, no account, nothing to cancel — it simply ends." }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens when the trial ends?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The Start button stops and the app asks for a licence key. Your list, your gap setting and everything else stay exactly as they were. Paste a key and you carry on from the same place." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I get a licence key?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Pay by UPI, then send us the screenshot along with your device code on WhatsApp or email. We issue the key by hand, usually within a few hours. It is a short string starting with DLF1. — paste it into the app and DialFlow unlocks." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use one key on two phones?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No — each key is issued for one device code. That is what stops a key from being passed around. If you change phones, message us and we will move your licence across." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it read my contacts or call log?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. DialFlow has no contacts permission and no call-log permission. It reads only the phone's live call state (idle, ringing, off-hook) so it knows when to dial the next number. Your numbers come only from what you paste." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my number list uploaded anywhere?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The list, your settings and your licence are stored on your phone. There is no server holding them and no analytics on what you dial." }
+        },
+        {
+          "@type": "Question",
+          "name": "What if a call doesn't connect?",
+          "acceptedAnswer": { "@type": "Answer", "text": "DialFlow waits about 25 seconds for the call to connect. If it doesn't, the row is marked and it moves on, so one dead number cannot stall the whole list." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I pause in the middle of a session?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Pause holds the list where it is, resume carries on from the same number, and stop ends the session — the rows already dialed keep their status." }
+        },
+        {
+          "@type": "Question",
+          "name": "Will it work on my phone?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Any Android 8.0 or newer phone. Dual-SIM phones work too, though each call uses the SIM your phone normally dials with." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is downloading an APK safe?",
+          "acceptedAnswer": { "@type": "Answer", "text": "An APK from the right place, properly signed, is the same file a store would give you. DialFlow is signed with its own key, Play Protect scans it on install, and we publish a SHA-256 fingerprint so you can confirm the file was not modified. Get it only from this page." }
+        },
+        {
+          "@type": "Question",
+          "name": "Refunds?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A licence key is delivered digitally and immediately, so payments cannot be refunded once a key has been sent. If your key does not work we will fix or replace it — just message us. Details are in the refund policy." }
+        }
+      ]
     }
   ]
 }
