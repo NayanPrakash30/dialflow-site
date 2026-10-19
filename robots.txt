@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nayanprakash30.github.io/dialflow-site/sitemap.xml
+Sitemap: https://dialflow-app.pages.dev/sitemap.xml
