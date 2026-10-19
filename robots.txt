@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://dialflow-app.pages.dev/sitemap.xml
