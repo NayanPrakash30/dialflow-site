@@ -1,311 +1,661 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0F1126">
-<title>DialFlow — power dialer for Android</title>
-<meta name="description" content="DialFlow calls your list one number at a time, automatically. Paste numbers, set the gap, press Start. Free 24-hour trial.">
-<style>
-  :root{
-    --bg:#0F1126; --surface:#18183C; --hero:#20214B; --accent:#6C60FC; --accent-deep:#3B327F;
-    --accent-soft:#2A2660; --accent-text:#B9B4FF; --teal:#18B4A8; --text:#F0F0FC; --text2:#A8A8CC;
-    --muted:#6B6B8C; --line:#242454; --danger:#FF6B81; --radius:16px;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  body{
-    background:var(--bg); color:var(--text); line-height:1.6;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
-  a{color:var(--accent-text)}
-  h1,h2,h3{line-height:1.25;margin:0}
-  section{padding:34px 0;border-bottom:1px solid var(--line)}
-  section:last-of-type{border-bottom:0}
-  .kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:14px}
+<title>DialFlow: Auto Dialer App for Android (Power Dialer)</title>
+<meta name="description" content="Paste your numbers, set the gap, press Start. DialFlow dials your list one call after another and never reads your contacts or call log. Direct APK, Android 8.0+, from ₹299 with a free 24-hour trial.">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Nayan Prakash">
+<link rel="canonical" href="https://nayanprakash30.github.io/dialflow-site/">
+<link rel="sitemap" type="application/xml" href="sitemap.xml">
 
-  header{padding:22px 0;border-bottom:1px solid var(--line)}
-  .brand{display:flex;align-items:center;gap:12px}
-  .brand h1{font-size:19px;letter-spacing:.02em}
-  .brand .sub{font-size:12px;color:var(--muted)}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DialFlow">
+<meta property="og:locale" content="en_IN">
+<meta property="og:url" content="https://nayanprakash30.github.io/dialflow-site/">
+<meta property="og:title" content="DialFlow: Auto Dialer App for Android">
+<meta property="og:description" content="Dial your list one call after another, automatically. No account, no contacts access, no data collected. From ₹299.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DialFlow: Auto Dialer App for Android">
+<meta name="twitter:description" content="Dial your list one call after another, automatically. No account, no contacts access, no data collected. From ₹299.">
 
-  .hero{background:var(--hero);border:1px solid var(--line);border-radius:var(--radius);padding:26px;margin:30px 0}
-  .hero h2{font-size:26px}
-  .hero p{color:var(--text2);margin:12px 0 0}
-  .pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-        padding:5px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent-text)}
-  .pill.teal{background:rgba(24,180,168,.14);color:var(--teal)}
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%230C0C24'/%3E%3Cpath d='M15.5 12.5c-1.6 0-2.9 1.3-2.9 2.9 0 11.2 9.1 20.3 20.3 20.3 1.6 0 2.9-1.3 2.9-2.9v-3.4c0-1.1-.7-2-1.7-2.4l-3.4-1.2c-.9-.3-1.9-.1-2.6.6l-1.9 1.9c-3.2-1.7-5.8-4.3-7.5-7.5l1.9-1.9c.7-.7.9-1.7.6-2.6l-1.2-3.4c-.4-1-1.3-1.7-2.4-1.7z' fill='%236C60FC'/%3E%3Cpath d='M36 14.5c1.9 1.2 3.4 2.8 4.4 4.7' stroke='%236C60FC' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M34.5 19.2c1.2.8 2.2 1.8 2.9 3' stroke='%236C60FC' stroke-width='2.4' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E">
 
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
-       padding:15px 24px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;
-       border:1px solid transparent;cursor:pointer;font-family:inherit;transition:transform .08s ease}
-  .btn:active{transform:scale(.985)}
-  .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:#fff;
-       box-shadow:0 10px 26px -12px rgba(108,96,252,.9)}
-  .btn-ghost{background:transparent;color:var(--accent-text);border-color:var(--accent-deep)}
-  .btn-wa{background:rgba(24,180,168,.14);color:var(--teal);border-color:rgba(24,180,168,.35)}
-  .btn-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/site.css">
 
-  .meta{margin-top:16px;font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
-  .mono{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
-  .copy{background:none;border:1px solid var(--line);color:var(--text2);border-radius:8px;
-        font-size:11px;padding:3px 8px;cursor:pointer;font-family:inherit}
-  .copy:hover{border-color:var(--accent-deep);color:var(--accent-text)}
-
-  ol.steps{padding-left:22px;margin:14px 0 0;color:var(--text2)}
-  ol.steps li{margin:10px 0}
-  ol.steps b{color:var(--text)}
-
-  .cards{display:grid;gap:14px;grid-template-columns:1fr}
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
-  .card.hl{border-color:var(--accent-deep);background:linear-gradient(180deg,var(--hero),var(--surface))}
-  .card .tag{float:right;font-size:10px;font-weight:800;letter-spacing:.1em;color:var(--teal);
-             border:1px solid rgba(24,180,168,.4);border-radius:999px;padding:3px 9px}
-  .card .name{font-size:14px;font-weight:700;color:var(--text2);letter-spacing:.04em;text-transform:uppercase}
-  .card .price{font-size:30px;font-weight:800;margin:6px 0 2px}
-  .card .per{font-size:12px;color:var(--muted)}
-  .card ul{list-style:none;padding:0;margin:14px 0 0;font-size:13px;color:var(--text2)}
-  .card ul li{margin:6px 0;padding-left:20px;position:relative}
-  .card ul li:before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:700}
-
-  .paybox{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-top:16px}
-  .payrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line)}
-  .payrow:last-child{border-bottom:0}
-  .payrow span:first-child{font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
-  .note{background:rgba(108,96,252,.10);border:1px solid var(--accent-deep);border-radius:12px;
-        padding:14px;font-size:13px;color:var(--accent-text);margin-top:16px}
-
-  details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
-  details summary{cursor:pointer;font-weight:700;font-size:14px;list-style:none}
-  details summary::-webkit-details-marker{display:none}
-  details summary:before{content:"+ ";color:var(--accent-text)}
-  details[open] summary:before{content:"– "}
-  details p{color:var(--text2);font-size:14px;white-space:pre-line;margin:12px 0 0}
-
-  footer{padding:30px 0 50px;color:var(--muted);font-size:13px}
-  footer a{color:var(--text2)}
-  .warn{color:var(--danger)}
-  @media(min-width:620px){
-    .cards{grid-template-columns:repeat(3,1fr)}
-    .hero h2{font-size:32px}
-  }
-</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://nayanprakash30.github.io/dialflow-site/#webpage",
+      "url": "https://nayanprakash30.github.io/dialflow-site/",
+      "name": "DialFlow: Auto Dialer App for Android",
+      "description": "DialFlow dials a pasted list of numbers one call after another, with an adjustable gap between calls. On-device only, no account, no contacts or call-log access.",
+      "about": { "@id": "https://nayanprakash30.github.io/dialflow-site/#app" },
+      "inLanguage": "en-IN"
+    },
+    {
+      "@type": ["SoftwareApplication", "MobileApplication"],
+      "@id": "https://nayanprakash30.github.io/dialflow-site/#app",
+      "name": "DialFlow",
+      "alternateName": "DialFlow Power Dialer",
+      "description": "Power dialer for Android. Paste a list of phone numbers, choose the gap between calls, and DialFlow works through the list automatically, showing a live status for every number. No account, no contacts access, nothing uploaded.",
+      "applicationCategory": "UtilitiesApplication",
+      "applicationSubCategory": "Auto dialing and call productivity",
+      "operatingSystem": "Android 8.0+",
+      "softwareVersion": "1.1",
+      "url": "https://nayanprakash30.github.io/dialflow-site/",
+      "downloadUrl": "https://nayanprakash30.github.io/dialflow-site/DialFlow-1.1.apk",
+      "inLanguage": "en-IN",
+      "author": { "@type": "Person", "name": "Nayan Prakash" },
+      "featureList": [
+        "Paste any list of numbers and DialFlow picks out the phone numbers",
+        "Dials one number after another, waiting for each call to end",
+        "Adjustable 3, 5, 10 second or custom gap between calls",
+        "Live status for every row: pending, calling, in call, called, skipped",
+        "Pause, resume and stop, keeping your place in the list",
+        "Keeps running in the background with a notification while the screen is locked",
+        "No contacts or call-log access, and no data leaves the device"
+      ],
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "INR",
+        "lowPrice": "299",
+        "highPrice": "4999",
+        "offerCount": 3,
+        "availability": "https://schema.org/InStock",
+        "offers": [
+          { "@type": "Offer", "name": "Monthly", "description": "31 days of unlimited dialing.", "price": "299", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "url": "https://nayanprakash30.github.io/dialflow-site/#pricing" },
+          { "@type": "Offer", "name": "Yearly", "description": "366 days of unlimited dialing.", "price": "1999", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "url": "https://nayanprakash30.github.io/dialflow-site/#pricing" },
+          { "@type": "Offer", "name": "Lifetime", "description": "One-time payment, all future updates.", "price": "4999", "priceCurrency": "INR", "availability": "https://schema.org/InStock", "url": "https://nayanprakash30.github.io/dialflow-site/#pricing" }
+        ]
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
-<header>
-  <div class="wrap brand">
-    <svg width="42" height="42" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-      <rect width="48" height="48" rx="12" fill="#0C0C24"/>
-      <path d="M15.5 12.5c-1.6 0-2.9 1.3-2.9 2.9 0 11.2 9.1 20.3 20.3 20.3 1.6 0 2.9-1.3 2.9-2.9v-3.4c0-1.1-.7-2-1.7-2.4l-3.4-1.2c-.9-.3-1.9-.1-2.6.6l-1.9 1.9c-3.2-1.7-5.8-4.3-7.5-7.5l1.9-1.9c.7-.7.9-1.7.6-2.6l-1.2-3.4c-.4-1-1.3-1.7-2.4-1.7z" fill="#6C60FC"/>
-      <path d="M36 14.5c1.9 1.2 3.4 2.8 4.4 4.7" stroke="#6C60FC" stroke-width="2.4" stroke-linecap="round" opacity=".85"/>
-      <path d="M34.5 19.2c1.2.8 2.2 1.8 2.9 3" stroke="#6C60FC" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>
-      <path d="M33 23.8c.6.4 1.1.9 1.5 1.5" stroke="#6C60FC" stroke-width="2.4" stroke-linecap="round" opacity=".3"/>
-    </svg>
-    <div>
-      <h1>DialFlow</h1>
-      <div class="sub">Power dialer for Android</div>
-    </div>
+<header class="nav">
+  <div class="container nav__inner">
+    <a class="nav__brand" href="index.html">
+      <svg class="nav__logo" viewBox="0 0 48 48" aria-hidden="true">
+        <rect width="48" height="48" rx="12" fill="#0C0C24"/>
+        <path d="M15.5 12.5c-1.6 0-2.9 1.3-2.9 2.9 0 11.2 9.1 20.3 20.3 20.3 1.6 0 2.9-1.3 2.9-2.9v-3.4c0-1.1-.7-2-1.7-2.4l-3.4-1.2c-.9-.3-1.9-.1-2.6.6l-1.9 1.9c-3.2-1.7-5.8-4.3-7.5-7.5l1.9-1.9c.7-.7.9-1.7.6-2.6l-1.2-3.4c-.4-1-1.3-1.7-2.4-1.7z" fill="#6C60FC"/>
+        <path d="M36 14.5c1.9 1.2 3.4 2.8 4.4 4.7" stroke="#6C60FC" stroke-width="2.4" stroke-linecap="round" opacity=".85"/>
+        <path d="M34.5 19.2c1.2.8 2.2 1.8 2.9 3" stroke="#6C60FC" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>
+        <path d="M33 23.8c.6.4 1.1.9 1.5 1.5" stroke="#6C60FC" stroke-width="2.4" stroke-linecap="round" opacity=".3"/>
+      </svg>
+      DialFlow
+    </a>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#who">Who it's for</a>
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#install">Install</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--primary btn--sm nav__cta" href="DialFlow-1.1.apk" download>Download APK</a>
   </div>
 </header>
 
-<main class="wrap">
+<main>
 
-  <div class="hero">
-    <span class="pill">Free 24-hour trial</span>
-    <h2 style="margin-top:14px">Dial your list, one call at a time — automatically.</h2>
-    <p>Paste your numbers, choose the gap between calls, press Start. DialFlow places each call, waits for it to connect, counts the gap, then dials the next one. Pause or stop any time.</p>
-    <div class="btn-row">
-      <a class="btn btn-primary" href="DialFlow-1.1.apk" download>Download APK · 733 KB</a>
-      <a class="btn btn-ghost" href="#buy">See pricing</a>
+  <!-- ============================== HERO ============================== -->
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__copy">
+        <span class="eyebrow eyebrow--pill">Free 24-hour trial</span>
+        <h1 class="hero__title">Dial your list, one call after another &mdash; automatically.</h1>
+        <p class="hero__sub">
+          Paste your numbers, pick the gap between calls, press Start. DialFlow places each call,
+          waits for it to finish, then dials the next one. Your list stays on your phone.
+        </p>
+        <div class="hero__cta btn-row" id="download">
+          <a class="btn btn--primary" href="DialFlow-1.1.apk" download>
+            Download APK &middot; <span class="js-size">733</span> KB
+            <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="#how">See how it works</a>
+        </div>
+        <p class="hero__note">Direct APK &middot; Version <span class="js-version">1.1</span> &middot; Android 8.0 and above &middot; From ₹299</p>
+        <div class="trust-pills">
+          <span class="trust-pill">Signed &amp; verifiable</span>
+          <span class="trust-pill">No contacts or call-log access</span>
+          <span class="trust-pill">No account</span>
+          <span class="trust-pill">Nothing uploaded</span>
+        </div>
+        <a class="hero__why" href="#install">Why isn't DialFlow on the Play Store? &rsaquo;</a>
+      </div>
+
+      <!-- CSS phone mockup - the DialFlow session screen -->
+      <div class="hero__art" aria-hidden="true">
+        <div class="phone">
+          <div class="phone__screen">
+            <div class="sbar">
+              <span>9:41</span>
+              <span class="sbar__icons">
+                <svg viewBox="0 0 18 12" class="sbar__ic"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="4.5" y="4.5" width="3" height="7.5" rx="1"/><rect x="9" y="2" width="3" height="10" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg>
+                <svg viewBox="0 0 18 14" class="sbar__ic"><path d="M9 3.4C6.2 3.4 3.7 4.5 1.9 6.3l1.5 1.5C4.9 6.3 6.9 5.4 9 5.4s4.1.9 5.6 2.4l1.5-1.5C14.3 4.5 11.8 3.4 9 3.4Z"/><circle cx="9" cy="12" r="1.4"/></svg>
+                <svg viewBox="0 0 26 12" class="sbar__ic"><rect x="0.6" y="0.6" width="22" height="10.8" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="2.2" y="2.2" width="16" height="7.6" rx="1.2"/><rect x="24" y="4" width="1.6" height="4" rx="0.8"/></svg>
+              </span>
+            </div>
+
+            <div class="app__bar">
+              <span class="app__brand">
+                <svg class="app__logo" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#0C0C24"/><path d="M15.5 12.5c-1.6 0-2.9 1.3-2.9 2.9 0 11.2 9.1 20.3 20.3 20.3 1.6 0 2.9-1.3 2.9-2.9v-3.4c0-1.1-.7-2-1.7-2.4l-3.4-1.2c-.9-.3-1.9-.1-2.6.6l-1.9 1.9c-3.2-1.7-5.8-4.3-7.5-7.5l1.9-1.9c.7-.7.9-1.7.6-2.6l-1.2-3.4c-.4-1-1.3-1.7-2.4-1.7z" fill="#6C60FC"/><path d="M36 14.5c1.9 1.2 3.4 2.8 4.4 4.7" stroke="#6C60FC" stroke-width="2.4" stroke-linecap="round" opacity=".85"/><path d="M34.5 19.2c1.2.8 2.2 1.8 2.9 3" stroke="#6C60FC" stroke-width="2.4" stroke-linecap="round" opacity=".55"/></svg>
+                DialFlow
+              </span>
+              <span class="app__pro">PRO</span>
+            </div>
+
+            <div class="hero-card">
+              <span class="hero-card__pill">DIALING</span>
+              <div class="hero-card__num">+91 98765 43210</div>
+              <div class="hero-card__next">Next call in 5s</div>
+              <div class="hero-card__prog"><i></i></div>
+              <div class="hero-card__count"><span>3</span> / 12</div>
+            </div>
+
+            <div class="gaprow">
+              <span class="chip chip--on">3s</span>
+              <span class="chip">5s</span>
+              <span class="chip">10s</span>
+              <span class="chip">Custom</span>
+            </div>
+
+            <div class="queuehead">
+              <b>QUEUE</b>
+              <span class="queuetag">9 LEFT</span>
+            </div>
+
+            <div class="qlist">
+              <div class="qrow qrow--cur"><span class="qrow__num">+91 98765 43210</span><span class="st st--call">In call</span></div>
+              <div class="qrow"><span class="qrow__num">+91 99887 77665</span><span class="st st--called">Called</span></div>
+              <div class="qrow"><span class="qrow__num">+91 90123 45678</span><span class="st st--pend">Pending</span></div>
+              <div class="qrow"><span class="qrow__num">+91 98111 22334</span><span class="st st--skip">Skipped</span></div>
+            </div>
+
+            <div class="app__actions">
+              <span class="abtn abtn--pause">Pause</span>
+              <span class="abtn abtn--stop">Stop</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="meta">
-      <span>Android 8.0 and above</span>
-      <span>Version 1.1</span>
+  </section>
+
+  <!-- =========================== TRUST STRIP =========================== -->
+  <section class="trust" aria-label="At a glance">
+    <div class="container trust__inner">
+      <span>Works on-device</span>
+      <span class="dot">&bull;</span>
+      <span>No call-log access</span>
+      <span class="dot">&bull;</span>
       <span>No account, no sign-up</span>
-      <span class="mono">SHA-256 <span id="h">0f4840264df524fb012b94bf7a11c55bca75cdffdedee01fde04798fb4b1dc74</span>
-        <button class="copy" data-copy="0f4840264df524fb012b94bf7a11c55bca75cdffdedee01fde04798fb4b1dc74">copy</button>
-      </span>
+      <span class="dot">&bull;</span>
+      <span>From ₹299</span>
+      <span class="dot">&bull;</span>
+      <span>No auto-renew</span>
     </div>
-  </div>
-
-  <section>
-    <div class="kicker">How it works</div>
-    <ol class="steps">
-      <li><b>Paste your list.</b> One number per line — or paste a whole block of text, DialFlow picks out the numbers.</li>
-      <li><b>Set the gap.</b> 3, 5 or 10 seconds between calls, or type your own.</li>
-      <li><b>Press Start and put the phone down.</b> Each row updates live: pending, calling, in call, called or skipped.</li>
-    </ol>
   </section>
 
-  <section id="buy">
-    <div class="kicker">Pricing</div>
-    <h2 style="font-size:22px">One licence. One device.</h2>
-    <p style="color:var(--text2)">The trail is 24 hours from first launch. After that, unlock with a licence key.</p>
+  <!-- ============================== WHO ============================== -->
+  <section class="section" id="who">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Who it's for</span>
+        <h2>Made for anyone working through a <span class="accent-text">call list</span></h2>
+        <p class="section__lead">If your day involves dialing the same kind of call over and over, DialFlow removes the tapping in between.</p>
+      </div>
 
-    <div class="cards" style="margin-top:20px">
-      <div class="card">
-        <div class="name">Monthly</div>
-        <div class="price">₹299</div>
-        <div class="per">31 days</div>
-        <ul>
-          <li>Unlimited dialing</li>
-          <li>All features</li>
-          <li>Ends automatically</li>
-        </ul>
+      <div class="icp__grid reveal">
+        <article class="icp__card">
+          <span class="icp__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 5.5c0 8 6 14 14 14l2.5-3-4-2.5-2 2c-2.7-1.3-4.7-3.3-6-6l2-2L8.5 5.5Z"/></svg></span>
+          <h3>Telecallers &amp; follow-up teams</h3>
+          <p>Work a day's list without tapping dial 150 times. DialFlow moves to the next number on its own and shows you exactly where you are.</p>
+        </article>
+        <article class="icp__card">
+          <span class="icp__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M10 21v-6h4v6"/></svg></span>
+          <h3>Real estate, insurance &amp; dealership sales</h3>
+          <p>Run through fresh leads and old enquiries in one long session. The list keeps its place while you talk, and resumes exactly there.</p>
+        </article>
+        <article class="icp__card">
+          <span class="icp__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16l-1.4 12.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8Z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></span>
+          <h3>Shops, services &amp; small businesses</h3>
+          <p>Delivery confirmations, appointment reminders, payment follow-ups. Set a five-second gap and let the list run while you keep working.</p>
+        </article>
       </div>
-      <div class="card hl">
-        <span class="tag">BEST VALUE</span>
-        <div class="name">Yearly</div>
-        <div class="price">₹1,999</div>
-        <div class="per">366 days · save ₹1,589</div>
-        <ul>
-          <li>Unlimited dialing</li>
-          <li>All features</li>
-          <li>Cheaper than monthly</li>
-        </ul>
-      </div>
-      <div class="card">
-        <div class="name">Lifetime</div>
-        <div class="price">₹4,999</div>
-        <div class="per">One-time payment</div>
-        <ul>
-          <li>Unlimited dialing forever</li>
-          <li>All future updates</li>
-          <li>Pay once</li>
+
+      <div class="loop reveal">
+        <h4>Typical lists people dial with it</h4>
+        <ul class="limits" style="margin-top:6px">
+          <li>New leads and old enquiries that never got a callback</li>
+          <li>Order or delivery confirmations</li>
+          <li>Appointment and renewal reminders</li>
+          <li>Payment and EMI follow-ups</li>
+          <li>Admission enquiries and coaching follow-ups</li>
+          <li>Service and warranty callbacks</li>
         </ul>
       </div>
     </div>
+  </section>
 
-    <div class="kicker" style="margin-top:30px">How to buy</div>
-    <ol class="steps">
-      <li>Install the app, open it and tap <b>Upgrade to Pro</b>.</li>
-      <li>Copy the <b>device code</b> shown there (looks like <span class="mono">4F7A-9C21</span>). Every licence is tied to one device code.</li>
-      <li>Pay the plan amount to one of the UPI IDs below.</li>
-      <li>Send us the <b>payment screenshot + your device code</b> on WhatsApp.</li>
-      <li>We issue your key — usually within a few hours — and you paste it in the app under <b>Already have a licence key?</b>.</li>
-    </ol>
+  <!-- ============================ INSTALL ============================ -->
+  <section class="section section--tint" id="install">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Installing DialFlow</span>
+        <h2>Why DialFlow isn't on the Play Store</h2>
+        <p class="section__lead">It's about policy and cost, not quality. Here's the honest version, plus how to check that your download is the real thing.</p>
+      </div>
 
-    <div class="paybox">
-      <div class="payrow">
-        <span>UPI</span>
-        <span class="mono" style="font-size:14px">8102497920@fam
-          <button class="copy" data-copy="8102497920@fam">copy</button></span>
-      </div>
-      <div class="payrow">
-        <span>UPI (alt)</span>
-        <span class="mono" style="font-size:14px">8102497920@slc
-          <button class="copy" data-copy="8102497920@slc">copy</button></span>
-      </div>
-      <div class="payrow">
-        <span>Payee</span><span>Nayan Prakash</span>
-      </div>
-      <div class="payrow">
-        <span>WhatsApp</span>
-        <span><a href="https://wa.me/918102497920" target="_blank" rel="noopener">+91 81024 97920</a></span>
-      </div>
-      <div class="payrow">
-        <span>Email</span>
-        <span><a href="mailto:nayanprakash90@gmail.com">nayanprakash90@gmail.com</a></span>
+      <div class="install">
+        <div class="install__why reveal">
+          <h3>A <span class="accent-text">policy and cost</span> thing, not a quality thing</h3>
+          <p>Google Play's rules around apps that <strong>place calls automatically</strong> are restrictive, and listing there means a paid developer account plus Google's billing cut on every payment. Both would change how DialFlow works, or push the price up. So instead of bending the app to fit a store, it ships to you directly as a signed Android app.</p>
+          <p>Direct downloads are normal for small Android utilities. What matters is <strong>where</strong> you get the file and <strong>whether it's properly signed</strong>. On both counts, DialFlow is built to be checked.</p>
+        </div>
+
+        <ul class="install__grid">
+          <li class="install__card reveal">
+            <span class="install__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 9.5-4-1.2-7-5-7-9.5V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+            <h4>Signed &amp; tamper-checked</h4>
+            <p>Every build is signed with our private key. Android refuses to install an update that isn't genuinely ours, so a modified copy can't quietly replace the real app.</p>
+          </li>
+          <li class="install__card reveal">
+            <span class="install__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M3 12h18"/></svg></span>
+            <h4>Play Protect still scans it</h4>
+            <p>Android's built-in Google Play Protect scans DialFlow when you install it and keeps watching it afterwards. Installing outside the store doesn't remove that safety net.</p>
+          </li>
+          <li class="install__card reveal">
+            <span class="install__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.4 2.6 3.6 5.7 3.6 9s-1.2 6.4-3.6 9c-2.4-2.6-3.6-5.7-3.6-9S9.6 5.6 12 3Z"/></svg></span>
+            <h4>One official source</h4>
+            <p>Download DialFlow only from this page. If a build didn't come from here, it isn't ours &mdash; don't install it.</p>
+          </li>
+          <li class="install__card reveal">
+            <span class="install__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+            <h4>Nothing to harvest</h4>
+            <p>DialFlow has no contacts or call-log access at all. The only numbers it ever knows are the ones you paste into it.</p>
+          </li>
+        </ul>
+
+        <div class="install__verify reveal">
+          <div class="install__steps">
+            <h4>Installing takes about a minute</h4>
+            <ol>
+              <li><strong>Download</strong> the APK with the button at the top of this page.</li>
+              <li>When Android asks, <strong>allow installs from your browser</strong> for this one file &mdash; a settings shortcut appears on the prompt.</li>
+              <li><strong>Open DialFlow</strong> and grant the Phone permission. That is what lets it place a call and notice when the call has ended.</li>
+              <li>Paste your numbers and press <strong>Start</strong>. Your trial begins on first launch.</li>
+            </ol>
+          </div>
+          <div class="install__hash">
+            <h4>Verify your download</h4>
+            <p>Match this SHA-256 fingerprint against the file you downloaded to be certain it's the real, unmodified app.</p>
+            <code class="install__code">SHA-256 of DialFlow <span class="js-version">1.1</span>:
+<span id="h">0f4840264df524fb012b94bf7a11c55bca75cdffdedee01fde04798fb4b1dc74</span>
+<button class="copy" type="button" data-copy-hash style="margin-top:10px">copy fingerprint</button></code>
+          </div>
+        </div>
+
+        <div class="warn-note reveal">
+          <span aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 2.4 17.5A2 2 0 0 0 4.1 20.5h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+          </span>
+          <span>If Play Protect shows a warning while installing, tap <strong>More details &rarr; Install anyway</strong>. That prompt appears for any app installed outside the store, including this one.</span>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="note">
-      Keys are issued manually after payment. Monthly and yearly licences simply stop when they run out — nothing is charged automatically, there is no auto-debit and no card is stored anywhere.
+  <!-- =========================== FEATURES =========================== -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Features</span>
+        <h2>Everything you need to get through a list</h2>
+        <p class="section__lead">No CRM, no dashboard, no setup call. Just the dialing loop, done properly.</p>
+      </div>
+
+      <div class="grid grid--3">
+        <article class="card reveal">
+          <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 5h11M9 12h11M9 19h11"/><path d="M3.5 5h2M3.5 12h2M3.5 19h2"/></svg></span>
+          <h3>Paste any list</h3>
+          <p>Numbers are picked out of whatever you paste: one per line, comma separated, or a messy block with names and notes mixed in.</p>
+        </article>
+        <article class="card reveal">
+          <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 5.5c0 8 6 14 14 14l2.5-3-4-2.5-2 2c-2.7-1.3-4.7-3.3-6-6l2-2L8.5 5.5Z"/><path d="M15 4h5v5"/><path d="m20 4-6 6"/></svg></span>
+          <h3>Dials one by one</h3>
+          <p>It places the call, waits for it to connect, waits for it to end, counts your gap, then dials the next number. You never tap dial again.</p>
+        </article>
+        <article class="card reveal">
+          <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+          <h3>Your gap, your pace</h3>
+          <p>Three, five or ten seconds between calls, or type your own. Longer gaps leave room to write notes after each call.</p>
+        </article>
+        <article class="card reveal">
+          <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/><path d="m16 9 3 3-3 3"/></svg></span>
+          <h3>Live status on every row</h3>
+          <p>Pending, calling, in call, called or skipped &mdash; updating as it goes, so you always know exactly where the list stands.</p>
+        </article>
+        <article class="card reveal">
+          <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+          <h3>Pause, resume, stop</h3>
+          <p>Take a call that matters, then continue from the same place. Pausing never loses your position in the list.</p>
+        </article>
+        <article class="card reveal">
+          <span class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18.5h2"/></svg></span>
+          <h3>Keeps running in the background</h3>
+          <p>Lock the screen or switch apps &mdash; the session keeps going, with a notification showing Pause and Stop while it runs.</p>
+        </article>
+      </div>
     </div>
+  </section>
 
-    <div class="btn-row">
-      <a class="btn btn-wa" href="https://wa.me/918102497920?text=Hi%2C%20I%20paid%20for%20DialFlow%20Pro.%20Here%20is%20my%20payment%20screenshot%20and%20device%20code%3A%20" target="_blank" rel="noopener">Send payment screenshot</a>
-      <a class="btn btn-ghost" href="mailto:nayanprakash90@gmail.com?subject=DialFlow%20Pro%20licence">Email us instead</a>
+  <!-- ============================ HOW ============================ -->
+  <section class="section section--tint" id="how">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">How it works</span>
+        <h2>Three steps, then it runs itself</h2>
+        <p class="section__lead">No import wizard, no account, no configuration file.</p>
+      </div>
+
+      <ol class="steps">
+        <li class="step reveal">
+          <span class="step__num">1</span>
+          <h3>Paste your list</h3>
+          <p>Copy your numbers from wherever they live &mdash; a note, a spreadsheet, a CRM export &mdash; and paste them in. DialFlow pulls out the numbers and ignores the rest.</p>
+        </li>
+        <li class="step reveal">
+          <span class="step__num">2</span>
+          <h3>Choose the gap</h3>
+          <p>Pick 3, 5 or 10 seconds, or type your own. Grant the Phone permission once &mdash; that is what lets the app place calls and detect when a call has ended.</p>
+        </li>
+        <li class="step reveal">
+          <span class="step__num">3</span>
+          <h3>Press Start and work the list</h3>
+          <p>Rows update live as each call is placed and finished. Pause when you need to talk, stop when you're done, and pick up later where you left off.</p>
+        </li>
+      </ol>
+
+      <div class="loop reveal">
+        <h4>What happens on each call</h4>
+        <ol>
+          <li>DialFlow places the call to the next number on the list.</li>
+          <li>It watches the phone's call state until the call actually connects.</li>
+          <li>It waits for the call to end &mdash; you talk for as long as you need.</li>
+          <li>It marks that row <em>called</em>, counts out your gap, then moves to the following number.</li>
+        </ol>
+        <p class="section__lead" style="margin-top:14px">If a number doesn't connect within about 25 seconds, the row is marked and DialFlow moves on rather than hanging on a dead line.</p>
+      </div>
     </div>
   </section>
 
-  <section>
-    <div class="kicker">Install help</div>
-    <p style="color:var(--text2)">Android will ask you to allow installing apps from this source the first time:</p>
-    <ol class="steps">
-      <li>Tap <b>Download APK</b> above and open the file.</li>
-      <li>When prompted, allow your browser to install unknown apps (Settings → Apps → your browser → Install unknown apps).</li>
-      <li>If Play Protect warns you, tap <b>More details → Install anyway</b>. The SHA-256 above is the exact file we publish — you can verify it.</li>
-      <li>Open DialFlow and grant <b>Phone</b> permission. That is what lets the app place calls and know when one has ended.</li>
-    </ol>
-    <p class="warn" style="font-size:13px;margin-top:14px">DialFlow asks for permission to make calls and read the call state only. It has no access to your contacts, call log or recordings, and it never uploads your numbers anywhere.</p>
+  <!-- =========================== PRIVACY =========================== -->
+  <section class="section" id="privacy">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Privacy</span>
+        <h2>Your list stays on your phone</h2>
+        <p class="section__lead">There is no account to create and no server holding your numbers, because DialFlow never sends them anywhere.</p>
+      </div>
+
+      <div class="privacy__grid reveal">
+        <article class="privacy__item">
+          <span class="privacy__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 9.5-4-1.2-7-5-7-9.5V6z"/></svg></span>
+          <h3>No account, no sign-up</h3>
+          <p>Install it and dial. There is no email, no password, and no login screen anywhere in the app.</p>
+        </article>
+        <article class="privacy__item">
+          <span class="privacy__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10 6h4"/></svg></span>
+          <h3>Stored on the device only</h3>
+          <p>Your list, your chosen gap and your licence live on this phone. Nothing is uploaded, and there is no copy anywhere else.</p>
+        </article>
+        <article class="privacy__item">
+          <span class="privacy__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c0-3 2.5-5.2 5.5-5.2S14.5 17 14.5 20"/><path d="m17 8 4 4"/><path d="m21 8-4 4"/></svg></span>
+          <h3>No contacts, no call log</h3>
+          <p>DialFlow cannot read your contacts, your call history or your recordings, and it never asks for them. It reads only the live call state.</p>
+        </article>
+        <article class="privacy__item">
+          <span class="privacy__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.4 2.6 3.6 5.7 3.6 9s-1.2 6.4-3.6 9c-2.4-2.6-3.6-5.7-3.6-9S9.6 5.6 12 3Z"/></svg></span>
+          <h3>One anonymous lookup, for the trial</h3>
+          <p>When the free trial starts, the app makes a single request to ipify.org to look up your public IP address. It is hashed and kept on the device to stop the same trial being restarted over and over &mdash; it is never sent to us.</p>
+        </article>
+      </div>
+
+      <p class="section__lead reveal" style="margin-top:20px">The full wording is in the <a href="privacy.html">privacy policy</a>.</p>
+    </div>
   </section>
 
-  <section>
-    <div class="kicker">Questions</div>
-    <details><summary>Does the app read my call log or contacts?</summary><p>No. It reads only the live call state (idle, ringing, off-hook) so it knows when a call has finished and the next one can be placed. No contacts, no call log, no recordings, nothing sent to us.</p></details>
-    <details><summary>What happens when the 24-hour trial ends?</summary><p>The Start button stops working and the app asks for a licence key. Your number list and settings are kept. Paste a key and everything continues as before.</p></details>
-    <details><summary>Can I use one key on two phones?</summary><p>No — a key is bound to the device code it was issued for. Message us and we can move your licence to a new phone if you replace the old one.</p></details>
-    <details><summary>Is anything charged automatically?</summary><p>Never. You pay once per period, by UPI, and then a key is issued manually. There is no auto-renew and we never see your bank or UPI credentials.</p></details>
-    <details><summary>Refunds?</summary><p>A licence key is delivered digitally and immediately, so payments cannot be refunded once the key has been issued. If your key does not work we will fix or replace it — just message us.</p></details>
-    <details><summary>Which phones are supported?</summary><p>Any Android 8.0 (Oreo) or newer device. Dual-SIM phones work too.</p></details>
+  <!-- =========================== PRICING =========================== -->
+  <section class="section section--tint" id="pricing">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Pricing</span>
+        <h2>One licence, one device, no auto-renew</h2>
+        <p class="section__lead">The trial is free for 24 hours from first launch. After that, unlock the app with a licence key &mdash; paid by UPI, no card stored anywhere.</p>
+      </div>
+
+      <div class="pricing__grid reveal">
+        <div class="plan">
+          <div class="plan__name">Monthly</div>
+          <div class="plan__price">₹299</div>
+          <div class="plan__per">31 days</div>
+          <ul class="plan__list">
+            <li>Unlimited dialing</li>
+            <li>Every feature included</li>
+            <li>Ends on its own &mdash; no auto-renew</li>
+          </ul>
+          <div class="plan__cta">
+            <a class="btn btn--ghost btn--block" href="#buy">Pay ₹299 by UPI</a>
+          </div>
+          <p class="plan__fine">Key issued manually after payment</p>
+        </div>
+
+        <div class="plan plan--featured">
+          <span class="plan__ribbon">Best value</span>
+          <div class="plan__name">Yearly</div>
+          <div class="plan__price">₹1,999</div>
+          <div class="plan__per">366 days &middot; saves ₹1,589</div>
+          <ul class="plan__list">
+            <li>Unlimited dialing</li>
+            <li>Every feature included</li>
+            <li>Cheaper than paying monthly</li>
+            <li>Ends on its own &mdash; no auto-renew</li>
+          </ul>
+          <div class="plan__cta">
+            <a class="btn btn--primary btn--block" href="#buy">Pay ₹1,999 by UPI</a>
+          </div>
+          <p class="plan__fine">Key issued manually after payment</p>
+        </div>
+
+        <div class="plan">
+          <div class="plan__name">Lifetime</div>
+          <div class="plan__price">₹4,999</div>
+          <div class="plan__per">one-time payment</div>
+          <ul class="plan__list">
+            <li>Unlimited dialing, permanently</li>
+            <li>All future updates</li>
+            <li>Pay once, never again</li>
+          </ul>
+          <div class="plan__cta">
+            <a class="btn btn--ghost btn--block" href="#buy">Pay ₹4,999 by UPI</a>
+          </div>
+          <p class="plan__fine">Key issued manually after payment</p>
+        </div>
+      </div>
+
+      <div class="buybox reveal" id="buy">
+        <h3>How to buy</h3>
+        <ol>
+          <li>Install DialFlow and open it. Tap <strong>Upgrade to Pro</strong>.</li>
+          <li>Copy the <strong>device code</strong> shown on that screen &mdash; it looks like <span class="nowrap">4F7A-9C21</span>. Your licence is tied to that one device.</li>
+          <li>Pay the plan amount to one of the UPI IDs below.</li>
+          <li>Send the <strong>payment screenshot and your device code</strong> on WhatsApp or email.</li>
+          <li>Your licence key arrives, usually within a few hours. Paste it into the app under <strong>Already have a licence key?</strong> and the app unlocks.</li>
+        </ol>
+
+        <div style="margin-top:18px">
+          <div class="payrow">
+            <span>UPI</span>
+            <span class="val">8102497920@fam <button class="copy" type="button" data-copy="8102497920@fam">copy</button></span>
+          </div>
+          <div class="payrow">
+            <span>UPI (alternate)</span>
+            <span class="val">8102497920@slc <button class="copy" type="button" data-copy="8102497920@slc">copy</button></span>
+          </div>
+          <div class="payrow">
+            <span>Payee name</span>
+            <span class="val">Nayan Prakash</span>
+          </div>
+          <div class="payrow">
+            <span>WhatsApp</span>
+            <span class="val"><a href="https://wa.me/918102497920" target="_blank" rel="noopener">+91 81024 97920</a></span>
+          </div>
+          <div class="payrow">
+            <span>Email</span>
+            <span class="val"><a href="mailto:nayanprakash90@gmail.com">nayanprakash90@gmail.com</a></span>
+          </div>
+        </div>
+
+        <div class="note">
+          Keys are issued by hand after payment, so please send the screenshot. Monthly and yearly licences simply stop when they run out &mdash; there is no auto-debit, no card on file, and no payment gateway in the middle taking a cut. Paying by UPI straight to us keeps the price where it is.
+        </div>
+
+        <div class="btn-row">
+          <a class="btn btn--teal" href="https://wa.me/918102497920?text=Hi%2C%20I%20paid%20for%20DialFlow%20Pro.%20Here%20is%20my%20payment%20screenshot%20and%20device%20code%3A%20" target="_blank" rel="noopener">Send payment screenshot</a>
+          <a class="btn btn--ghost" href="mailto:nayanprakash90@gmail.com?subject=DialFlow%20Pro%20licence">Email instead</a>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section>
-    <div class="kicker">Legal</div>
-    <details><summary>Privacy policy</summary><p>No account, no sign-up, no tracking.
-
-Everything you enter — your number list, settings, trial state and licence — is stored only on this device. Nothing is uploaded to us.
-
-During a dial session the app reads the phone's call state (idle / ringing / off-hook) so it knows when to place the next call. It does not read, record, save or transmit your call log, contacts or recordings.
-
-When the free trial starts, the app makes one request to ipify.org to look up your public IP address. That address is hashed on the device and stored locally to stop the same trial being restarted over and over. The address is not sent to us or kept in its original form.
-
-Payments are made in your own UPI app, directly to our UPI ID. We never see your card, bank or UPI credentials.
-
-Uninstalling the app deletes all of this data. Messages you choose to send us (WhatsApp or email) contain only what you type.
-
-Questions: nayanprakash90@gmail.com</p></details>
-    <details><summary>Terms of use</summary><p>DialFlow Pro is licensed to you, not sold.
-
-One licence key covers one device, matched to the device code shown in the app. Keys are personal; sharing or reselling a key may void it without refund.
-
-Monthly and yearly licences run for the period stated on your key and end automatically — nothing is charged on a recurring basis unless you pay again. Lifetime covers the lifetime of the app, including future updates.
-
-Because a licence key is delivered digitally and immediately, payments cannot be refunded once a key has been issued. If a key does not work, contact us and we will fix or replace it.
-
-The app is provided as is, without warranty of uninterrupted or error-free operation. Suggested use is for lawful personal and business calling where the people you call have consented to be contacted. You are responsible for complying with local laws on calling, recording and consent — no spam, no harassment, no impersonation.
-
-We may update the app and these terms; continuing to use a current version means you accept the latest version.</p></details>
+  <!-- =========================== LIMITS =========================== -->
+  <section class="section" id="limits">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Straight answers</span>
+        <h2>What DialFlow doesn't do</h2>
+        <p class="section__lead">It's better to know this before you pay than after.</p>
+      </div>
+      <ul class="limits reveal">
+        <li>It doesn't know who picks up. It dials on a timer, so it can't tell a voicemail, a busy tone or a wrong number from a real conversation.</li>
+        <li>It doesn't make internet calls &mdash; no WhatsApp, Telegram or VoIP. Regular SIM calls only, one SIM at a time.</li>
+        <li>It never reads your contacts, so the list is exactly what you paste in. Nothing is dialed that you didn't put there.</li>
+        <li>One licence covers one device, matched to the device code. We can move it to a new phone if you replace yours.</li>
+        <li>It needs the Phone permission to work. Without it, the app can't place calls at all.</li>
+        <li>Use it for people who expect your call. Automatic dialing is regulated in some places, and honouring do-not-call requests and consent is your responsibility.</li>
+      </ul>
+    </div>
   </section>
 
-  <footer>
-    DialFlow · <a href="mailto:nayanprakash90@gmail.com">nayanprakash90@gmail.com</a> ·
-    <a href="https://wa.me/918102497920" target="_blank" rel="noopener">WhatsApp</a>
-  </footer>
+  <!-- ============================ FAQ ============================ -->
+  <section class="section section--tint" id="faq">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Questions</span>
+        <h2>The things people ask before buying</h2>
+      </div>
+
+      <div class="faq reveal">
+        <details class="faq__item">
+          <summary>Is the trial really free?</summary>
+          <div class="faq__body"><p>Yes. 24 hours of full use from the first time you open the app. No card, no account, nothing to cancel &mdash; it simply ends.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>What happens when the trial ends?</summary>
+          <div class="faq__body"><p>The Start button stops and the app asks for a licence key. Your list, your gap setting and everything else stay exactly as they were. Paste a key and you carry on from the same place.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>How do I get a licence key?</summary>
+          <div class="faq__body"><p>Pay by UPI, then send us the screenshot along with your device code on WhatsApp or email. We issue the key by hand, usually within a few hours. It's a short string starting with <span class="nowrap">DLF1.</span> &mdash; paste it into the app and DialFlow unlocks.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>Can I use one key on two phones?</summary>
+          <div class="faq__body"><p>No &mdash; each key is issued for one device code. That's what stops a key from being passed around. If you change phones, message us and we'll move your licence across.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>Does it read my contacts or call log?</summary>
+          <div class="faq__body"><p>No. DialFlow has no contacts permission and no call-log permission. It reads only the phone's live call state (idle, ringing, off-hook) so it knows when to dial the next number. Your numbers come only from what you paste.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>Is my number list uploaded anywhere?</summary>
+          <div class="faq__body"><p>No. The list, your settings and your licence are stored on your phone. There's no server holding them and no analytics on what you dial.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>What if a call doesn't connect?</summary>
+          <div class="faq__body"><p>DialFlow waits about 25 seconds for the call to connect. If it doesn't, the row is marked and it moves on, so one dead number can't stall the whole list.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>Can I pause in the middle of a session?</summary>
+          <div class="faq__body"><p>Yes. Pause holds the list where it is, resume carries on from the same number, and stop ends the session &mdash; the rows already dialed keep their status.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>Will it work on my phone?</summary>
+          <div class="faq__body"><p>Any Android 8.0 or newer phone. Dual-SIM phones work too, though each call uses the SIM your phone normally dials with.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>Is downloading an APK safe?</summary>
+          <div class="faq__body"><p>An APK from the right place, properly signed, is the same file a store would give you. DialFlow is signed with its own key, Play Protect scans it on install, and we publish a SHA-256 fingerprint so you can confirm the file wasn't modified. Get it only from this page.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>Refunds?</summary>
+          <div class="faq__body"><p>A licence key is delivered digitally and immediately, so payments can't be refunded once a key has been sent. If your key doesn't work we'll fix or replace it &mdash; just message us. Details are in the <a href="refund.html">refund policy</a>.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
 
 </main>
 
-<script>
-  document.querySelectorAll('.copy').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var text = btn.getAttribute('data-copy');
-      var done = function () {
-        var old = btn.textContent;
-        btn.textContent = 'copied';
-        setTimeout(function () { btn.textContent = old; }, 1200);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done, function () { fallback(text, done); });
-      } else {
-        fallback(text, done);
-      }
-    });
-  });
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">
+          <svg class="nav__logo" viewBox="0 0 48 48" aria-hidden="true">
+            <rect width="48" height="48" rx="12" fill="#0C0C24"/>
+            <path d="M15.5 12.5c-1.6 0-2.9 1.3-2.9 2.9 0 11.2 9.1 20.3 20.3 20.3 1.6 0 2.9-1.3 2.9-2.9v-3.4c0-1.1-.7-2-1.7-2.4l-3.4-1.2c-.9-.3-1.9-.1-2.6.6l-1.9 1.9c-3.2-1.7-5.8-4.3-7.5-7.5l1.9-1.9c.7-.7.9-1.7.6-2.6l-1.2-3.4c-.4-1-1.3-1.7-2.4-1.7z" fill="#6C60FC"/>
+          </svg>
+          DialFlow
+        </div>
+        <p style="margin-top:12px;max-width:420px">Power dialer for Android. Paste a list, set the gap, press Start &mdash; and keep the list on your own phone.</p>
+      </div>
+      <div>
+        <p style="font-weight:700;color:var(--text-2);margin-bottom:10px">DialFlow</p>
+        <div class="footer__links">
+          <a href="DialFlow-1.1.apk" download>Download APK</a>
+          <a href="#features">Features</a>
+          <a href="#how">How it works</a>
+          <a href="#install">Install &amp; verify</a>
+          <a href="#pricing">Pricing</a>
+        </div>
+        <p style="font-weight:700;color:var(--text-2);margin:18px 0 10px">Legal &amp; support</p>
+        <div class="footer__links">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="refund.html">Refunds</a>
+          <a href="mailto:nayanprakash90@gmail.com">Email</a>
+          <a href="https://wa.me/918102497920" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <p class="footer__legal">
+      &copy; <span data-year>2026</span> DialFlow. Android and Google Play are trademarks of Google LLC.
+      DialFlow is independent software and is not affiliated with Google.
+    </p>
+  </div>
+</footer>
 
-  function fallback(text, done) {
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    try { document.execCommand('copy'); done(); } catch (e) {}
-    document.body.removeChild(ta);
-  }
-</script>
+<script src="js/site.js" defer></script>
 </body>
 </html>
